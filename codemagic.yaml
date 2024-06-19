@@ -4,7 +4,6 @@ workflows:
     max_build_duration: 60
     environment:
       vars:
-        JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
         ANDROID_COMPILE_SDK: "30"
         ANDROID_BUILD_TOOLS: "30.0.3"
         ANDROID_SDK_ROOT: /opt/android-sdk
