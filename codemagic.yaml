@@ -1,13 +1,24 @@
-language: android
-jdk: oraclejdk8
-android:
-  components:
-    - tools
-    - platform-tools
-    - build-tools-29.0.2
-    - android-29
-    - extra-google-google_play_services
-    - extra-google-m2repository
-    - extra-android-m2repository
-script:
-  - ./gradlew assembleDebug
+workflows:
+  build_apk:
+    name: Build APK
+    max_build_duration: 60
+    environment:
+      vars:
+        JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
+        ANDROID_COMPILE_SDK: "30"
+        ANDROID_BUILD_TOOLS: "30.0.3"
+        ANDROID_SDK_ROOT: /opt/android-sdk
+    scripts:
+      - name: Install Dependencies
+        script: |
+          cd android
+          ./gradlew dependencies
+      - name: Build APK
+        script: |
+          ./gradlew assembleRelease
+    artifacts:
+      - android/app/build/outputs/apk/release/app-release.apk
+    publishing:
+      email:
+        recipients:
+          - cm.rajeev@gmail.com
